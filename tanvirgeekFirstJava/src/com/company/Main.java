@@ -5,36 +5,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Main {
-    public static String screenText = new String("123+34-23*23/2");
     public static void main(String[] args) {
-        /*System.out.println(Pattern.matches("....s","safasss"));
-        System.out.println(Pattern.matches(".","a"));
-        System.out.println(Pattern.matches("[^abc]","t"));// One character other than abc
-        System.out.println(Pattern.matches("[a-zA-Z]","a"));
-        System.out.println(Pattern.matches("",""));
-*/
-        //String[] numbers = screenText.split("[+\\-*/]");
-        /*for(String x: numbers){
-            System.out.println(x);
-            System.out.println("\n");
-        }*/
-        System.out.println(doCalculation("1+2"));
-
+        System.out.println(doCalculation("1+1*5/3-2"));
     }
 
-   /* public static String doCaclculation(String stringNumbers){
-        List<String> numbers = new ArrayList<String>();
-        List<String> Operators = new ArrayList<String>();
-        String result = "0";
-        for(int n=0; n<stringNumbers.length();n++){
-            char c = stringNumbers.charAt(n);
-            if(c == '+' || c == '-' || c == '*' || c == '/'){
-
-            }
-
-        }
-        return result;
-    }*/
    public static String doCalculation(String stringNumbers){
        String[] numbers = stringNumbers.split("[-+*/]");
        //String[] Operators = stringNumbers.split("[0-9.]*");
@@ -51,18 +25,89 @@ public class Main {
        for(String operator: Operators){
            operatorList.add(operator);
        }
-       numberList.forEach(System.out::println);
-       operatorList.forEach(System.out::println);
+       //numberList.forEach(System.out::println);
+       //operatorList.forEach(System.out::println);
+       //Do ALL Division
        for (int i=0; i<operatorList.size();i++ ) {
-           //System.out.println(operatorList.get(i));
+
            switch (operatorList.get(i)){
-               case "+":
+               case "/":
                 double num1 = Double.valueOf(numberList.get(i));
                 double num2 = Double.valueOf(numberList.get(i+1));
-                return String.valueOf(num1+num2);
+                numberList.set(i,(num1/num2));
+                numberList.remove(i+1);
+                //System.out.println(numberList);
+                operatorList.remove(i);
+
+                //System.out.println(operatorList);
+                //System.out.println(operatorList.size());
+                if(operatorList.size()==0){
+                    return String.valueOf(numberList.get(i));
+                }
+                i--;
            }
        }
-       return "tanvir";
+       //Do All multiplication
+       for (int i=0; i<operatorList.size();i++ ) {
+
+           switch (operatorList.get(i)){
+               case "*":
+                   double num1 = Double.valueOf(numberList.get(i));
+                   double num2 = Double.valueOf(numberList.get(i+1));
+                   numberList.set(i,(num1*num2));
+                   numberList.remove(i+1);
+                   //System.out.println(numberList);
+                   operatorList.remove(i);
+
+                   //System.out.println(operatorList);
+                   //System.out.println(operatorList.size());
+                   if(operatorList.size()==0){
+                       return String.valueOf(numberList.get(i));
+                   }
+                   i--;
+           }
+       }
+       //Do all Addition
+       for (int i=0; i<operatorList.size();i++ ) {
+
+           switch (operatorList.get(i)){
+               case "+":
+                   double num1 = Double.valueOf(numberList.get(i));
+                   double num2 = Double.valueOf(numberList.get(i+1));
+                   numberList.set(i,(num1+num2));
+                   numberList.remove(i+1);
+                   //System.out.println(numberList);
+                   operatorList.remove(i);
+
+                   //System.out.println(operatorList);
+                   //System.out.println(operatorList.size());
+                   if(operatorList.size()==0){
+                       return String.valueOf(numberList.get(i));
+                   }
+                   i--;
+           }
+       }
+       //Do all Substraction
+       for (int i=0; i<operatorList.size();i++ ) {
+
+           switch (operatorList.get(i)){
+               case "-":
+                   double num1 = Double.valueOf(numberList.get(i));
+                   double num2 = Double.valueOf(numberList.get(i+1));
+                   numberList.set(i,(num1-num2));
+                   numberList.remove(i+1);
+                   //System.out.println(numberList);
+                   operatorList.remove(i);
+
+                   //System.out.println(operatorList);
+                   //System.out.println(operatorList.size());
+                   if(operatorList.size()==0){
+                       return String.valueOf(numberList.get(i));
+                   }
+                   i--;
+           }
+       }
+       return "calculation failed";
    }
 
 }
